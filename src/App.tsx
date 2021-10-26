@@ -19,6 +19,10 @@ import { PromotionCreate } from 'promotion/create';
 import { PromotionEdit } from 'promotion/edit';
 import { PromotionList } from 'promotion/list';
 import { PromotionShow } from 'promotion/show';
+import { SaleCreate } from 'sale/create';
+import { SaleEdit } from 'sale/edit';
+import { SaleList } from 'sale/list';
+import { SaleShow } from 'sale/show';
 
 function App() {
   const API_URL = "http://localhost:1337";
@@ -57,6 +61,14 @@ function App() {
         list={PromotionList}
         show={PromotionShow}
         create={PromotionCreate}
+        canDelete
+      />
+      <Resource
+        name="sales"
+        edit={SaleEdit}
+        list={SaleList}
+        show={SaleShow}
+        create={SaleCreate}
         canDelete
       />
     </Refine>
