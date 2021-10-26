@@ -7,7 +7,7 @@ import {
 
 const { Title, Text } = Typography;
 
-export const DeliveryShow = () => {
+export const DeliverymanShow = () => {
   const { queryResult } = useShow();
   const { data, isLoading } = queryResult;
   const record = data?.data;

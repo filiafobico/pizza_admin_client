@@ -9,8 +9,12 @@ import { ClientCreate } from 'client/create';
 import { ClientShow } from 'client/show';
 import { DeliverymanCreate } from 'deliveryman/create';
 import { DeliverymanList } from 'deliveryman/list';
-import { DeliveryShow } from 'deliveryman/show';
+import { DeliverymanShow } from 'deliveryman/show';
 import { DeliverymanEdit } from 'deliveryman/edit';
+import { PizzaEdit } from 'pizza/edit';
+import { PizzaShow } from 'pizza/show';
+import { PizzaCreate } from 'pizza/create';
+import { PizzaList } from 'pizza/list';
 
 function App() {
   const API_URL = "http://localhost:1337";
@@ -31,8 +35,16 @@ function App() {
         name="deliverymen"
         edit={DeliverymanEdit}
         list={DeliverymanList}
-        show={DeliveryShow}
+        show={DeliverymanShow}
         create={DeliverymanCreate}
+        canDelete
+      />
+      <Resource
+        name="pizzas"
+        edit={PizzaEdit}
+        list={PizzaList}
+        show={PizzaShow}
+        create={PizzaCreate}
         canDelete
       />
     </Refine>
