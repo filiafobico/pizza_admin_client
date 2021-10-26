@@ -15,6 +15,10 @@ import { PizzaEdit } from 'pizza/edit';
 import { PizzaShow } from 'pizza/show';
 import { PizzaCreate } from 'pizza/create';
 import { PizzaList } from 'pizza/list';
+import { PromotionCreate } from 'promotion/create';
+import { PromotionEdit } from 'promotion/edit';
+import { PromotionList } from 'promotion/list';
+import { PromotionShow } from 'promotion/show';
 
 function App() {
   const API_URL = "http://localhost:1337";
@@ -45,6 +49,14 @@ function App() {
         list={PizzaList}
         show={PizzaShow}
         create={PizzaCreate}
+        canDelete
+      />
+      <Resource
+        name="promotions"
+        edit={PromotionEdit}
+        list={PromotionList}
+        show={PromotionShow}
+        create={PromotionCreate}
         canDelete
       />
     </Refine>
