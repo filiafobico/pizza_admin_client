@@ -7,6 +7,10 @@ import { ClientList } from 'client/list';
 import { ClientEdit } from 'client/edit';
 import { ClientCreate } from 'client/create';
 import { ClientShow } from 'client/show';
+import { DeliverymanCreate } from 'deliveryman/create';
+import { DeliverymanList } from 'deliveryman/list';
+import { DeliveryShow } from 'deliveryman/show';
+import { DeliverymanEdit } from 'deliveryman/edit';
 
 function App() {
   const API_URL = "http://localhost:1337";
@@ -21,6 +25,14 @@ function App() {
         list={ClientList}
         show={ClientShow}
         create={ClientCreate}
+        canDelete
+      />
+      <Resource
+        name="deliverymen"
+        edit={DeliverymanEdit}
+        list={DeliverymanList}
+        show={DeliveryShow}
+        create={DeliverymanCreate}
         canDelete
       />
     </Refine>
