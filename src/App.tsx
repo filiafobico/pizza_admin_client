@@ -1,4 +1,6 @@
-import { Refine, Resource } from "@pankod/refine";
+import { Refine } from "@pankod/refine";
+
+import routerProvider from "@pankod/refine-react-router";
 
 import "@pankod/refine/dist/styles.min.css";
 import { DataProvider } from "@pankod/refine-strapi";
@@ -30,48 +32,41 @@ function App() {
   const { authProvider, axiosInstance } = strapiAuthProvider(API_URL);
   const dataProvider = DataProvider(API_URL, axiosInstance);
   return (
-    <Refine dataProvider={dataProvider} authProvider={authProvider} >
-      <Resource
-        name="clients"
-        edit={ClientEdit}
-        list={ClientList}
-        show={ClientShow}
-        create={ClientCreate}
-        canDelete
-      />
-      <Resource
-        name="deliverymen"
-        edit={DeliverymanEdit}
-        list={DeliverymanList}
-        show={DeliverymanShow}
-        create={DeliverymanCreate}
-        canDelete
-      />
-      <Resource
-        name="pizzas"
-        edit={PizzaEdit}
-        list={PizzaList}
-        show={PizzaShow}
-        create={PizzaCreate}
-        canDelete
-      />
-      <Resource
-        name="promotions"
-        edit={PromotionEdit}
-        list={PromotionList}
-        show={PromotionShow}
-        create={PromotionCreate}
-        canDelete
-      />
-      <Resource
-        name="sales"
-        edit={SaleEdit}
-        list={SaleList}
-        show={SaleShow}
-        create={SaleCreate}
-        canDelete
-      />
-    </Refine>
+    <Refine
+      dataProvider={dataProvider}
+      authProvider={authProvider}
+      routerProvider={routerProvider}
+      resources={[{
+        name: "clients",
+        edit: ClientEdit,
+        list: ClientList,
+        show: ClientShow,
+        create: ClientCreate
+      }, {
+        name: "deliverymen",
+        edit: DeliverymanEdit,
+        list: DeliverymanList,
+        show: DeliverymanShow,
+        create: DeliverymanCreate
+      }, {
+        name: "pizzas",
+        edit: PizzaEdit,
+        list: PizzaList,
+        show: PizzaShow,
+        create: PizzaCreate
+      }, {
+        name: "promotions",
+        edit: PromotionEdit,
+        list: PromotionList,
+        show: PromotionShow,
+        create: PromotionCreate
+      }, {
+        name: "sales",
+        edit: SaleEdit,
+        list: SaleList,
+        show: SaleShow,
+        create: SaleCreate
+      }]} />
   );
 }
 
