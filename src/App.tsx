@@ -7,8 +7,7 @@ import { DataProvider } from "@pankod/refine-strapi";
 import strapiAuthProvider from "authProvider";
 import { ClientList } from 'client/list';
 import { ClientEdit } from 'client/edit';
-import { ClientCreate } from 'client/create';
-import { ClientShow } from 'client/show';
+import { AddressCreate } from 'address/create';
 import { DeliverymanCreate } from 'deliveryman/create';
 import { DeliverymanList } from 'deliveryman/list';
 import { DeliverymanShow } from 'deliveryman/show';
@@ -25,6 +24,11 @@ import { SaleCreate } from 'sale/create';
 import { SaleEdit } from 'sale/edit';
 import { SaleList } from 'sale/list';
 import { SaleShow } from 'sale/show';
+import { AddressEdit } from 'address/edit';
+import { AddressList } from 'address/list';
+import { AddressShow } from 'address/show';
+import { ClientCreate } from 'client/create';
+import { ClientShow } from 'client/show';
 
 function App() {
   const API_URL = "https://utfpr-pizza-server.herokuapp.com";
@@ -42,6 +46,12 @@ function App() {
         list: ClientList,
         show: ClientShow,
         create: ClientCreate
+      }, {
+        name: "adresses",
+        edit: AddressEdit,
+        list: AddressList,
+        show: AddressShow,
+        create: AddressCreate
       }, {
         name: "deliverymen",
         edit: DeliverymanEdit,
