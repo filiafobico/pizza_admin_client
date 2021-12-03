@@ -16,6 +16,9 @@ export const PromotionEdit: React.FC = () => {
               <Form.Item label="Percentage" name="percentage">
                   <Input  type="number" />
               </Form.Item>
+              <Form.Item label="ExpiresAt" name="expiresAt">
+                  <Input type="datetime-local"/>
+              </Form.Item>
             </Form>
         </Edit>
     );

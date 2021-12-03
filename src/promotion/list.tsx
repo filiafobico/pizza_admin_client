@@ -11,6 +11,7 @@ export const PromotionList: React.FC = () => {
               <Table.Column dataIndex="description" title="description" />
               <Table.Column dataIndex="code" title="code" />
               <Table.Column dataIndex="percentage" title="percentage" />
+              <Table.Column dataIndex="expiresAt" title="expiresAt" />
               <Table.Column<IPromotion>
                     title="Actions"
                     dataIndex="actions"

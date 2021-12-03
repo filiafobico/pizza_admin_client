@@ -3,4 +3,5 @@ export interface IPromotion {
   description: string;
   code: string;
   percentage: number;
+  expiresAt: Date
 }

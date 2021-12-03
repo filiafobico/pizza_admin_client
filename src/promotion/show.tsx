@@ -26,6 +26,11 @@ export const PromotionShow = () => {
           <Text>
               <Tag>{record?.percentage}</Tag>
           </Text>
+
+          <Title level={5}>ExpiresAt</Title>
+          <Text>
+              <Tag>{record?.expiresAt}</Tag>
+          </Text>
       </Show>
   );
 };
