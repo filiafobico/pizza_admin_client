@@ -5,7 +5,6 @@ import { ISale } from 'interfaces/sale';
 export const SaleList: React.FC = () => {
   const { tableProps } = useTable<ISale>();
   const clientIds = tableProps?.dataSource?.map((item) => item.client?.id) ?? [];
-  console.log(clientIds)
   const { data: clientsData, isLoading } = useMany<IClient>({
     resource: "clients",
     ids: clientIds,
@@ -14,7 +13,6 @@ export const SaleList: React.FC = () => {
     },
   });
   const deliverymanIds = tableProps?.dataSource?.map((item) => item.deliveryman?.id) ?? [];
-  console.log(deliverymanIds)
   const { data: deliverymanData, isLoading: dIsLoading } = useMany<IClient>({
     resource: "deliverymen",
     ids: deliverymanIds,
