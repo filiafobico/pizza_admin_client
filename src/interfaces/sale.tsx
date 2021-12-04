@@ -1,10 +1,16 @@
+import { IAddress } from './address';
+import { IClient } from './client';
+import { IDeliveryman } from './deliveryman';
+import { IPizza } from './pizza';
+import { IPromotion } from './promotion';
+
 export interface ISale {
   id: string;
-  client: string;
-  deliveryman: string;
+  client: IClient;
+  deliveryman: IDeliveryman;
   type: "delivery",
-  pizzas: Array<string>
+  pizzas: Array<IPizza>
   total: number
-  address: string
-  promotion: string
+  address: IAddress
+  promotion: IPromotion
 }

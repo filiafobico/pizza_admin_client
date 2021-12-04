@@ -3,37 +3,71 @@ import {
   Form,
   Input,
   Radio,
-  useForm} from "@pankod/refine";
+  Select,
+  useForm,
+  useSelect} from "@pankod/refine";
+import { IAddress } from 'interfaces/address';
+import { IClient } from 'interfaces/client';
+import { IDeliveryman } from 'interfaces/deliveryman';
+import { IPizza } from 'interfaces/pizza';
+import { IPromotion } from 'interfaces/promotion';
 import { ISale } from 'interfaces/sale';
 
 export const SaleCreate = () => {
+  let total = 0
+
   const { formProps, saveButtonProps } = useForm<ISale>();
+  const { selectProps: clients } = useSelect<IClient>({
+    resource: "clients",
+    optionLabel: "name",
+    optionValue: "id",
+  });
+  const { selectProps: deliverymen } = useSelect<IDeliveryman>({
+    resource: "deliverymen",
+    optionLabel: "name",
+    optionValue: "id",
+  });
+  const { selectProps: pizzas } = useSelect<IPizza>({
+    resource: "pizzas",
+    optionLabel: "name",
+    optionValue: "id",
+  });
+  const { selectProps: adressess } = useSelect<IAddress>({
+    resource: "adresses",
+    optionLabel: "street",
+    optionValue: "id",
+  });
+  const { selectProps: promotions } = useSelect<IPromotion>({
+    resource: "promotions",
+    optionLabel: "description",
+    optionValue: "id",
+  });
 
   return (
       <Create saveButtonProps={saveButtonProps}>
           <Form {...formProps} layout="vertical">
-              <Form.Item label="Client" name="client">
-                  <Input />
+              <Form.Item label="Clients" name={["client", "id"]}>
+                <Select {...clients} />
               </Form.Item>
-              <Form.Item label="Deliveryman" name="deliveryman">
-                  <Input />
+              <Form.Item label="Deliveryman" name={["deliveryman", "id"]}>
+                <Select {...deliverymen} />
+              </Form.Item>
+              <Form.Item label="Pizzas" name={["pizzas", "id"]}>
+                <Select  mode="multiple" {...pizzas} />
+              </Form.Item>
+              <Form.Item label="Address" name={["adress", "id"]}>
+                <Select {...adressess} />
+              </Form.Item>
+              <Form.Item label="Promotion" name={["promotion", "id"]}>
+                <Select {...promotions} />
               </Form.Item>
               <Form.Item label="Type" name="type">
                 <Radio.Group>
-                    <Radio value="delivery">Delivery</Radio>
+                    <Radio checked={true} value="delivery">Delivery</Radio>
                 </Radio.Group>
               </Form.Item>
-              <Form.Item label="Pizzas" name="pizzas">
-                  <Input />
-              </Form.Item>
               <Form.Item label="Total" name="total">
-                  <Input type="number" />
-              </Form.Item>
-              <Form.Item label="Address" name="address">
-                  <Input />
-              </Form.Item>
-              <Form.Item label="Promotion" name="promotion">
-                  <Input />
+                  <Input value={total} type="number" />
               </Form.Item>
           </Form>
       </Create>
