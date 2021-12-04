@@ -7,7 +7,14 @@ import { IPromotion } from 'interfaces/promotion';
 import { ISale } from 'interfaces/sale';
 
 export const SaleEdit: React.FC = () => {
-    const { formProps, saveButtonProps } = useForm<ISale>();
+    const { formProps, saveButtonProps, form } = useForm<ISale>();
+
+    const HandlePizzaSelect = (event: any) => {
+      const value = pizzasQuery.data?.data?.filter(({ id }) => event.includes(id))?.reduce((sum, { price }) => sum + price, 0) || 0
+      form.setFieldsValue({
+        total: value
+      })
+    }
     const { selectProps: clients } = useSelect<IClient>({
       resource: "clients",
       optionLabel: "name",
@@ -18,7 +25,7 @@ export const SaleEdit: React.FC = () => {
       optionLabel: "name",
       optionValue: "id",
     });
-    const { selectProps: pizzas } = useSelect<IPizza>({
+    const { selectProps: pizzas, queryResult: pizzasQuery } = useSelect<IPizza>({
       resource: "pizzas",
       optionLabel: "name",
       optionValue: "id",
@@ -43,7 +50,7 @@ export const SaleEdit: React.FC = () => {
               <Select {...deliverymen} />
             </Form.Item>
             <Form.Item label="Pizzas" name={["pizzas", "id"]}>
-              <Select  mode="multiple" {...pizzas} />
+              <Select onChange={HandlePizzaSelect} mode="multiple" {...pizzas} />
             </Form.Item>
             <Form.Item label="Address" name={["adress", "id"]}>
               <Select {...adressess} />

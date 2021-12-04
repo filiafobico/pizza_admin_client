@@ -14,9 +14,14 @@ import { IPromotion } from 'interfaces/promotion';
 import { ISale } from 'interfaces/sale';
 
 export const SaleCreate = () => {
-  let total = 0
+  const { formProps, saveButtonProps, form } = useForm<ISale>();
 
-  const { formProps, saveButtonProps } = useForm<ISale>();
+  const HandlePizzaSelect = (event: any) => {
+    const value = pizzasQuery.data?.data?.filter(({ id }) => event.includes(id))?.reduce((sum, { price }) => sum + price, 0) || 0
+    form.setFieldsValue({
+      total: value
+    })
+  }
   const { selectProps: clients } = useSelect<IClient>({
     resource: "clients",
     optionLabel: "name",
@@ -27,7 +32,7 @@ export const SaleCreate = () => {
     optionLabel: "name",
     optionValue: "id",
   });
-  const { selectProps: pizzas } = useSelect<IPizza>({
+  const { selectProps: pizzas, queryResult: pizzasQuery } = useSelect<IPizza>({
     resource: "pizzas",
     optionLabel: "name",
     optionValue: "id",
@@ -53,7 +58,7 @@ export const SaleCreate = () => {
                 <Select {...deliverymen} />
               </Form.Item>
               <Form.Item label="Pizzas" name={["pizzas", "id"]}>
-                <Select  mode="multiple" {...pizzas} />
+                <Select onChange={HandlePizzaSelect} mode="multiple" {...pizzas} />
               </Form.Item>
               <Form.Item label="Address" name={["adress", "id"]}>
                 <Select {...adressess} />
@@ -66,8 +71,8 @@ export const SaleCreate = () => {
                     <Radio checked={true} value="delivery">Delivery</Radio>
                 </Radio.Group>
               </Form.Item>
-              <Form.Item label="Total" name="total">
-                  <Input value={total} type="number" />
+              <Form.Item initialValue={0} label="Total" name="total">
+                  <Input type="number" />
               </Form.Item>
           </Form>
       </Create>
