@@ -12,16 +12,26 @@ import { IDeliveryman } from 'interfaces/deliveryman';
 import { IPizza } from 'interfaces/pizza';
 import { IPromotion } from 'interfaces/promotion';
 import { ISale } from 'interfaces/sale';
+import { useState } from 'react';
 
 export const SaleCreate = () => {
   const { formProps, saveButtonProps, form } = useForm<ISale>();
-
+  const [clientIdSelect, setSelected] = useState()
   const HandlePizzaSelect = (event: any) => {
     const value = pizzasQuery.data?.data?.filter(({ id }) => event.includes(id))?.reduce((sum, { price }) => sum + price, 0) || 0
     form.setFieldsValue({
       total: value
     })
   }
+
+  const handleFormValuesChange = (changedValues: any) => {
+    const formFieldName = Object.keys(changedValues)[0];
+    if (formFieldName === "client") {
+      setSelected(changedValues[formFieldName]);
+      form.setFieldsValue({ adress: undefined });
+    }
+  };
+
   const { selectProps: clients } = useSelect<IClient>({
     resource: "clients",
     optionLabel: "name",
@@ -37,7 +47,7 @@ export const SaleCreate = () => {
     optionLabel: "name",
     optionValue: "id",
   });
-  const { selectProps: adressess } = useSelect<IAddress>({
+  const { queryResult: adressQuery } = useSelect<IAddress>({
     resource: "adresses",
     optionLabel: "street",
     optionValue: "id",
@@ -50,7 +60,7 @@ export const SaleCreate = () => {
 
   return (
       <Create saveButtonProps={saveButtonProps}>
-          <Form {...formProps} layout="vertical">
+          <Form {...formProps} layout="vertical" onValuesChange={handleFormValuesChange}>
               <Form.Item label="Clients" name={["client", "id"]}>
                 <Select {...clients} />
               </Form.Item>
@@ -61,7 +71,15 @@ export const SaleCreate = () => {
                 <Select onChange={HandlePizzaSelect} mode="multiple" {...pizzas} />
               </Form.Item>
               <Form.Item label="Address" name={["adress", "id"]}>
-                <Select {...adressess} />
+                <Select options={
+                    adressQuery?.data?.data
+                      ?.filter(({ client }) => client.id === (clientIdSelect as any)?.id)
+                      .map((address) => ({
+                        label: address.street,
+                        value: address.id
+                      }))
+                      || []
+                } />
               </Form.Item>
               <Form.Item label="Promotion" name={["promotion", "id"]}>
                 <Select {...promotions} />
