@@ -2,7 +2,6 @@ import {
   Create,
   Form,
   Input,
-  Radio,
   Select,
   useForm,
   useSelect} from "@pankod/refine";
@@ -64,12 +63,6 @@ export const SaleCreate = () => {
               <Form.Item label="Clients" name={["client", "id"]}>
                 <Select {...clients} />
               </Form.Item>
-              <Form.Item label="Deliveryman" name={["deliveryman", "id"]}>
-                <Select {...deliverymen} />
-              </Form.Item>
-              <Form.Item label="Pizzas" name={["pizzas", "id"]}>
-                <Select onChange={HandlePizzaSelect} mode="multiple" {...pizzas} />
-              </Form.Item>
               <Form.Item label="Address" name={["adress", "id"]}>
                 <Select options={
                     adressQuery?.data?.data
@@ -81,13 +74,14 @@ export const SaleCreate = () => {
                       || []
                 } />
               </Form.Item>
+              <Form.Item label="Deliveryman" name={["deliveryman", "id"]}>
+                <Select {...deliverymen} />
+              </Form.Item>
+              <Form.Item label="Pizzas" name={["pizzas", "id"]}>
+                <Select onChange={HandlePizzaSelect} mode="multiple" {...pizzas} />
+              </Form.Item>
               <Form.Item label="Promotion" name={["promotion", "id"]}>
                 <Select {...promotions} />
-              </Form.Item>
-              <Form.Item label="Type" name="type">
-                <Radio.Group>
-                    <Radio checked={true} value="delivery">Delivery</Radio>
-                </Radio.Group>
               </Form.Item>
               <Form.Item initialValue={0} label="Total" name="total">
                   <Input type="number" />

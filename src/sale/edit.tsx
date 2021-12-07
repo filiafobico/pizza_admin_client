@@ -1,4 +1,4 @@
-import { useForm, Form, Input, Edit, Radio, Select, useSelect } from "@pankod/refine";
+import { useForm, Form, Input, Edit, Select, useSelect } from "@pankod/refine";
 import { IAddress } from 'interfaces/address';
 import { IClient } from 'interfaces/client';
 import { IDeliveryman } from 'interfaces/deliveryman';
@@ -51,11 +51,30 @@ export const SaleEdit: React.FC = () => {
       optionLabel: "description",
       optionValue: "id",
     });
+
+    if (form.getFieldValue(["client", "id"]) && !clientIdSelect) {
+      setSelected(form.getFieldValue(["client", "id"]))
+    }
+    // console.log(form.getFieldValue(["adress", "street"]))
     return (
         <Edit saveButtonProps={saveButtonProps}>
         <Form {...formProps} layout="vertical" onValuesChange={handleFormValuesChange}>
             <Form.Item label="Clients" name={["client", "id"]}>
               <Select {...clients} />
+            </Form.Item>
+            <Form.Item label="Address" name={["adress", "id"]}>
+              <Select options={
+                  adressQuery?.data?.data
+                    ?.filter(({ client }) => client.id === (clientIdSelect as any)?.id)
+                    .map((address) => {
+                      console.log(address)
+                      return {
+                        label: address.street,
+                        value: address.id
+                      }
+                    })
+                    || []
+              } />
             </Form.Item>
             <Form.Item label="Deliveryman" name={["deliveryman", "id"]}>
               <Select {...deliverymen} />
@@ -63,24 +82,8 @@ export const SaleEdit: React.FC = () => {
             <Form.Item label="Pizzas" name={["pizzas", "id"]}>
               <Select onChange={HandlePizzaSelect} mode="multiple" {...pizzas} />
             </Form.Item>
-              <Form.Item label="Address" name={["adress", "id"]}>
-                <Select options={
-                    adressQuery?.data?.data
-                      ?.filter(({ client }) => client.id === (clientIdSelect as any)?.id)
-                      .map((address) => ({
-                        label: address.street,
-                        value: address.id
-                      }))
-                      || []
-                } />
-              </Form.Item>
             <Form.Item label="Promotion" name={["promotion", "id"]}>
               <Select {...promotions} />
-            </Form.Item>
-            <Form.Item label="Type" name="type">
-              <Radio.Group>
-                  <Radio value="delivery">Delivery</Radio>
-              </Radio.Group>
             </Form.Item>
             <Form.Item label="Total" name="total">
                 <Input type="number" />
