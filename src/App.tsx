@@ -29,6 +29,8 @@ import { AddressList } from 'address/list';
 import { AddressShow } from 'address/show';
 import { ClientCreate } from 'client/create';
 import { ClientShow } from 'client/show';
+import { ReportSale } from 'pages/report_sale';
+import { ReportDelivery } from 'pages/report_delivery';
 
 function App() {
   const API_URL = "https://utfpr-pizza-server.herokuapp.com";
@@ -39,7 +41,18 @@ function App() {
     <Refine
       dataProvider={dataProvider}
       authProvider={authProvider}
-      routerProvider={routerProvider}
+      routerProvider={{
+        ...routerProvider,
+        routes: [{
+          exact: true,
+          component: ReportSale,
+          path: "/sale_report"
+        }, {
+          exact: true,
+          component: ReportDelivery,
+          path: "/delivery_report"
+        }],
+      }}
       resources={[{
         name: "clients",
         edit: ClientEdit,
@@ -76,6 +89,16 @@ function App() {
         list: SaleList,
         show: SaleShow,
         create: SaleCreate
+      }, {
+        name: "Sale Report",
+        options: {
+          route: 'sale_report'
+        }
+      }, {
+        name: "Delivery Report",
+        options: {
+          route: 'delivery_report'
+        }
       }]} />
   );
 }
